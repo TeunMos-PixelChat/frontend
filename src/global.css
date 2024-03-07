@@ -1,0 +1,25 @@
+:root {
+    --shell-body-color: var(--mantine-color-default-hover);
+    --shell-big-sidebar-color: var(--mantine-color-default);
+    --shell-small-sidebar-color: var(--mantine-color-body);
+    --shell-inner-header-color: var(--shell-big-sidebar-color);
+
+
+    --shell-footer-color: var(--shell-small-sidebar-color);
+
+    --shell-header-height: 50px;
+    --shell-inner-header-hight: var(--shell-header-height);
+
+    --big-sidebar-width: 250px;
+    --shell-small-sidebar-width: var(--shell-header-height);
+}
+
+.spacer {
+    flex: 1;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }

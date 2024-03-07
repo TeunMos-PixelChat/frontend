@@ -1,0 +1,96 @@
+.shellContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--shell-big-sidebar-color);
+}
+
+.shellHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: var(--shell-header-height);
+    width: 100%;
+}
+
+.shellComponentsContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+
+.smallSidebar {
+    display: flex;
+    flex-direction: column;
+    width: var(--shell-small-sidebar-width);
+    height: 100%;
+    background-color: var(--shell-small-sidebar-color);
+}
+
+.bigSidebarContainer {
+    display: flex;
+    flex-direction: column;
+    width: var(--big-sidebar-width);
+    height: 100%;
+    background-color: var(--shell-footer-color);
+}
+
+.bigSidebar {
+    max-height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    background-color: var(--shell-big-sidebar-color);
+    border-radius: 0 0 0 20px ;
+}
+
+.bigSidebarFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100px;
+    width: 100%;
+}
+
+.shellContentContainer  {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    background-color: var(--shell-body-color);
+}
+
+
+
+
+.shellContent, .shellInnerContent {
+    display: block;
+    max-height: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: var(--shell-body-color);
+}
+
+.shellInnerContent {
+    border-radius: 20px 0 0 0 ;
+    max-height: calc(100% - var(--shell-inner-header-hight));
+}
+
+
+.innerHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--shell-inner-header-color);
+}
+
+.innerHeader {
+    display: block;
+    height: var(--shell-inner-header-hight);
+}
+
+

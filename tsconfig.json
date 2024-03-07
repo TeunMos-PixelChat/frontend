@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true, // allows importing of .json files
+    "moduleDetection": "force",
+    "allowUmdGlobalAccess": false,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": true,
+    "pretty": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "noErrorTruncation": true,
+    "verbatimModuleSyntax": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noUncheckedIndexedAccess": true,
+    "sourceMap": true,
+    "incremental": true,
+    "removeComments": true,
+    "jsx": "preserve",
+  },
+  "exclude": [
+    "./auth0",
+    "node_modules"
+  ],
+}
