@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Title, Button } from '@mantine/core';
+import { Group, Center, Title, Button, Code } from '@mantine/core';
 import GoogleIcon from '../components/googleIcon';
 
+import vars from '../util/vars';
+import axios from 'axios';
 
 // use webRTC to create a voice chat
 async function initwebRTC() {
@@ -22,9 +24,17 @@ async function initwebRTC() {
 
 
 export default function Home() {
+  const [response, setResponse] = React.useState({});
 
   useEffect(() => {
-
+    axios.post(`${vars.API_URL}/test`, {
+      message: "Hello, world!"
+    }).then(res => {
+      console.log(res);
+      setResponse(res.data);
+    }).catch(err => {
+      console.error(err);
+    });
   }, []);
 
 
@@ -33,7 +43,11 @@ export default function Home() {
   return (
     <Group style={{display: "block"}}>
       <Center h="100vh">
-        
+        {response ? (
+          <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
+        ) : (
+          <Title order={1}>Loading...</Title>
+        )}
       </Center>
     </Group>
   );

@@ -1,7 +1,8 @@
 :root {
-    --shell-body-color: var(--mantine-color-default-hover);
+    --shell-body-color: var( --mantine-color-body);
     --shell-big-sidebar-color: var(--mantine-color-default);
-    --shell-small-sidebar-color: var(--mantine-color-body);
+    --shell-small-sidebar-color: var(--mantine-color-default-hover);
+    
     --shell-inner-header-color: var(--shell-big-sidebar-color);
 
 
