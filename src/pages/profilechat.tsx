@@ -46,7 +46,7 @@ export default function Home() {
         {response ? (
           <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
         ) : (
-          <Title order={1}>Loading...</Title>
+          <Title order={1}>Loading.....</Title>
         )}
       </Center>
     </Group>
