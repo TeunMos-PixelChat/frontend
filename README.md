@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the PixelChat project. It is a React web application for the chat interface.
 
-## Available Scripts
+In the future it may be expanded to an Electron application for desktop use.
 
-In the project directory, you can run:
+## Development
 
-### `npm start`
+Node.js (version 20) is used for development. The frontend uses typescript and react.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To install the dependencies, run:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+To start the development server, run:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start
+```
 
-### `npm run build`
+This will start the development server at [http://localhost:3000](http://localhost:3000).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deployment
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The frontend is deployed with [Azure static web apps](https://azure.microsoft.com/en-us/products/app-service/static). The deployment is done automatically when changes are pushed to the `main`, `develop` or pull requests are created.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> The github workflow file for deployment can be found [here!](.github/workflows/azure-static-web-apps-black-coast-05ede3c03.yml)
 
-### `npm run eject`
+You can access the deployed frontend versions at these links:
+- https://black-coast-05ede3c03.5.azurestaticapps.net/ - production (main branch)
+- https://black-coast-05ede3c03-develop.westeurope.5.azurestaticapps.net/ - develop
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Testing
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> **Caution: There are no tests for the frontend yet.**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The frontend uses jest and react-testing-library for testing. To run the tests, run:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+npm run test
+```
 
-## Learn More
+## Important Libraries Used in the Frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Mantine](https://mantine.dev/) - UI library
+- [Socket.io](https://socket.io/) - for real-time communication with the backend
+- [Axios](https://axios-http.com/) - for making HTTP requests to the backend
+- [React Router](https://reactrouter.com/) - for routing
+- [Auth0](https://auth0.com/) - for authentication
 
-To learn React, check out the [React documentation](https://reactjs.org/).
