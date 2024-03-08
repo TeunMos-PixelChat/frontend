@@ -47,6 +47,7 @@ export default function Home() {
             <Loader />
           )}
           <Code>{process.env.REACT_APP_API_URL}</Code>
+          <Code>Env: {process.env.NODE_ENV}</Code>
         </Stack>
       </Center>
     </Group>
