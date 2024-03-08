@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Title, Code } from '@mantine/core';
+import { Group, Center, Title, Code, Stack } from '@mantine/core';
 
 import vars from '../util/vars';
 import axios from 'axios';
@@ -23,10 +23,10 @@ import axios from 'axios';
 
 
 export default function Home() {
-  const [response, setResponse] = React.useState({});
+  const [response, setResponse] = React.useState<object | undefined>();
 
   useEffect(() => {
-    axios.post(`${vars.API_URL}/test`, {
+    axios.post(`${process.env.REACT_APP_API_URL}/test`, {
       message: "Hello, world!"
     }).then(res => {
       console.log(res);
@@ -42,11 +42,14 @@ export default function Home() {
   return (
     <Group style={{display: "block"}}>
       <Center h="100vh">
-        {response ? (
-          <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
-        ) : (
-          <Title order={1}>Loading.....</Title>
-        )}
+        <Stack>
+          {response ? (
+            <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
+          ) : (
+            <Title order={1}>Loading.....</Title>
+          )}
+          <Code>{process.env.REACT_APP_API_URL}</Code>
+        </Stack>
       </Center>
     </Group>
   );
