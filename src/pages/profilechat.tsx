@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Title, Code, Stack } from '@mantine/core';
+import { Group, Center, Title, Code, Stack, Loader } from '@mantine/core';
 import axios from 'axios';
 
 // use webRTC to create a voice chat
@@ -39,12 +39,12 @@ export default function Home() {
 
   return (
     <Group style={{display: "block"}}>
-      <Center h="100vh">
+      <Center h={400}>
         <Stack>
           {response ? (
             <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
           ) : (
-            <Title order={1}>Loading.....</Title>
+            <Loader />
           )}
           <Code>{process.env.REACT_APP_API_URL}</Code>
         </Stack>
