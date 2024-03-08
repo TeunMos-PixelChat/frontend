@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Title, Code, Stack, Loader } from '@mantine/core';
+import { Group, Center, Code, Stack, Loader } from '@mantine/core';
 import axios from 'axios';
 
 // use webRTC to create a voice chat
