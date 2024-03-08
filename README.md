@@ -22,7 +22,10 @@ npm start
 
 This will start the development server at [http://localhost:3000](http://localhost:3000).
 
+
 ## Deployment
+
+### Deployment to Azure
 
 The frontend is deployed with [Azure static web apps](https://azure.microsoft.com/en-us/products/app-service/static). The deployment is done automatically when changes are pushed to the `main`, `develop` or pull requests are created.
 
@@ -31,10 +34,20 @@ The frontend is deployed with [Azure static web apps](https://azure.microsoft.co
 You can access the deployed frontend versions at these links:
 - https://black-coast-05ede3c03.5.azurestaticapps.net/ - production (main branch)
 - https://black-coast-05ede3c03-develop.westeurope.5.azurestaticapps.net/ - develop
+### Local Deployment (Docker)
+
+> In the future a docker compose file will be added to deploy the frontend and backend together.
+
+The application uses docker for local deployment. To build the docker image, run:
+
+```bash
+docker build -t pixelchat-frontend .
+```
+
 
 ## Testing
 
-> **Caution: There are no tests for the frontend yet.**
+> **Caution: There are no tests for the frontend yet, so the command below will not run any tests.**
 
 The frontend uses jest and react-testing-library for testing. To run the tests, run:
 
