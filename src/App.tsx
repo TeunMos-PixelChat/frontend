@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Profilechat from './pages/profilechat';
 import InnerHeader from './components/shell/innerHeader';
+import { Center } from '@mantine/core';
 
 function App() {
 
@@ -11,18 +12,20 @@ function App() {
 
 
   return (
-    <Shell path={currentPath}>
+    // <Shell path={currentPath}>
       <BrowserRouter>
       <Routes>
         <Route index element = {
-            <InnerHeader>
+            // <InnerHeader>
               <Profilechat />
-            </InnerHeader>
+            // </InnerHeader>
         } />
-        <Route path="s" element={<div />} />
+        <Route path="*" element = {
+            <Center>Not found</Center>
+        } />
       </Routes>
     </BrowserRouter>
-    </Shell>
+    // </Shell>
   );
 }
 
