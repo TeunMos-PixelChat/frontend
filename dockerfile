@@ -13,6 +13,12 @@ RUN npm install
 # Copy the project files to the container
 COPY . .
 
+# Accept the build arguments
+ARG REACT_APP__MESSAGE_API_URL
+
+# Use the build arguments as environment variables
+ENV REACT_APP__MESSAGE_API_URL=$REACT_APP__MESSAGE_API_URL
+
 # Build the React app
 RUN npm run build
 

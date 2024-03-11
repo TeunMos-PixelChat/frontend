@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Code, Stack, Loader } from '@mantine/core';
+import { Group, Center, Code, Stack, Loader, Flex } from '@mantine/core';
 import axios from 'axios';
 
 // use webRTC to create a voice chat
@@ -25,7 +25,7 @@ export default function Home() {
 
   useEffect(() => {
     axios.post(`${process.env.REACT_APP_API_URL}/test`, {
-      message: "Hello, world!"
+      message: "hello from frontend",
     }).then(res => {
       console.log(res);
       setResponse(res.data);
@@ -40,15 +40,23 @@ export default function Home() {
   return (
     <Group style={{display: "block"}}>
       <Center h={400}>
-        <Stack>
+        <Flex
+          gap="md"
+          justify="flex-start"
+          align="center"
+          direction="column"
+          wrap="wrap">
+          
           {response ? (
             <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
           ) : (
             <Loader />
           )}
-          <Code>{process.env.REACT_APP_API_URL}</Code>
-          <Code>Env: {process.env.NODE_ENV}</Code>
-        </Stack>
+          <Stack>
+            <Code>{process.env.REACT_APP_API_URL}</Code>
+            <Code>Env: {process.env.NODE_ENV}</Code>
+          </Stack>
+        </Flex>
       </Center>
     </Group>
   );
