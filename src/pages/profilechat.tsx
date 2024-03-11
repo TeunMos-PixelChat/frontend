@@ -55,6 +55,7 @@ export default function Home() {
           <Stack>
             <Code>{process.env.REACT_APP_API_URL}</Code>
             <Code>Env: {process.env.NODE_ENV}</Code>
+            <Code>Branch: {process.env.REACT_APP_BRANCH}</Code>
           </Stack>
         </Flex>
       </Center>
