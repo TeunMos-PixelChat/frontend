@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import '@mantine/core/styles.css';
+import '@mantine/code-highlight/styles.css';
 import { createTheme, MantineProvider } from '@mantine/core';
 
 const theme = createTheme({

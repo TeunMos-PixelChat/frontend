@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Group, Center, Code, Stack, Loader, Flex } from '@mantine/core';
 import axios from 'axios';
+import { CodeHighlight } from '@mantine/code-highlight';
 
 // use webRTC to create a voice chat
 // async function initwebRTC() {
@@ -50,12 +51,14 @@ export default function Home() {
           wrap="wrap">
           
           {response ? (
-            <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
+            // <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
+            <CodeHighlight style={{fontSize: "1.5rem"}} code={ JSON.stringify(response, null, 2) } language="json" />
           ) : (
             <Loader />
           )}
           <Stack>
             <Code>{apiURL}</Code>
+            
             <Code>Env: {process.env.NODE_ENV}</Code>
             <Code>Branch: {process.env.REACT_APP_BRANCH}</Code>
           </Stack>
