@@ -23,8 +23,10 @@ import axios from 'axios';
 export default function Home() {
   const [response, setResponse] = React.useState<object | undefined>();
 
+  const apiURL = process.env.REACT_APP_API_URL || "api";
+
   useEffect(() => {
-    axios.post(`${process.env.REACT_APP_API_URL}/test`, {
+    axios.post(`${apiURL}/test`, {
       message: "hello from frontend",
     }).then(res => {
       console.log(res);
@@ -53,7 +55,7 @@ export default function Home() {
             <Loader />
           )}
           <Stack>
-            <Code>{process.env.REACT_APP_API_URL}</Code>
+            <Code>{apiURL}</Code>
             <Code>Env: {process.env.NODE_ENV}</Code>
             <Code>Branch: {process.env.REACT_APP_BRANCH}</Code>
           </Stack>
