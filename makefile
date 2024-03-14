@@ -1,11 +1,11 @@
-REACT_APP__MESSAGE_API_URL ?= http://localhost:3001
+REACT_APP_API_URL ?= http://localhost:3001
 
-build:
+build-nogateway:
 	docker build \
-	--build-arg REACT_APP__MESSAGE_API_URL=$(REACT_APP__MESSAGE_API_URL) \
+	--build-arg REACT_APP_API_URL=$(REACT_APP_API_URL) \
 	-t pixelchat-frontend .
 
 build_gateway:
 	docker build \
-	--build-arg REACT_APP__MESSAGE_API_URL="api" \
+	--build-arg REACT_APP_API_URL="api" \
 	-t pixelchat-frontend .

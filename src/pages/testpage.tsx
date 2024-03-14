@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Code, Stack, Loader, Flex } from '@mantine/core';
+import { Group, Center, Code, Stack, Loader, Flex, Button } from '@mantine/core';
 import axios from 'axios';
-import { CodeHighlight } from '@mantine/code-highlight';
+import { InlineCodeHighlight } from '@mantine/code-highlight';
 
 // use webRTC to create a voice chat
 // async function initwebRTC() {
@@ -24,9 +24,16 @@ import { CodeHighlight } from '@mantine/code-highlight';
 export default function Home() {
   const [response, setResponse] = React.useState<object | undefined>();
 
+  // use "api" if there is no REACT_APP_API_URL, which is when using the gateway
   const apiURL = process.env.REACT_APP_API_URL || "api";
 
   useEffect(() => {
+    getAPIData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function getAPIData() {
+    setResponse(undefined);
     axios.post(`${apiURL}/test`, {
       message: "hello from frontend",
     }).then(res => {
@@ -35,8 +42,7 @@ export default function Home() {
     }).catch(err => {
       console.error(err);
     });
-  }, []);
-
+  }
 
 
 
@@ -51,14 +57,15 @@ export default function Home() {
           wrap="wrap">
           
           {response ? (
-            // <Code style={{fontSize: "1.5rem"}}>{ JSON.stringify(response, null, 2) }</Code>
-            <CodeHighlight style={{fontSize: "1.5rem"}} code={ JSON.stringify(response, null, 2) } language="json" />
+            <InlineCodeHighlight style={{fontSize: 25, fontWeight: 600}} code={ JSON.stringify(response, null, 2) } language="json" />
           ) : (
             <Loader />
           )}
+          <Button onClick={getAPIData}>
+            Refetch data from backend
+          </Button>
           <Stack>
-            <Code>{apiURL}</Code>
-            
+            <Code>Backend url: {apiURL}</Code>
             <Code>Env: {process.env.NODE_ENV}</Code>
             <Code>Branch: {process.env.REACT_APP_BRANCH}</Code>
           </Stack>
