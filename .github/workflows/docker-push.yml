@@ -15,11 +15,13 @@ jobs:
       run: docker build . --file Dockerfile --tag newbuild:new
     - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: extract docker tag
+      run: |
+        BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+        DOCKER_TAG= $(echo ghcr.io/${{ github.repository }}:$BRANCH_NAME-$(date +%s) | tr '[:upper:]' '[:lower:]')
+        echo $DOCKER_TAG >> $GITHUB_OUTPUT
+      id: docker_tag
     - name: Tag the Docker image
-      run: |
-        BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
-        docker tag newbuild:new ghcr.io/${{ github.repository }}:$BRANCH_NAME.$(date +%s)
+      run: docker tag newbuild:new ${{ steps.docker_tag.outputs.DOCKER_TAG }}
     - name: Push the Docker image
-      run: |
-        BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
-        docker push ghcr.io/${{ github.repository }}:$BRANCH_NAME.$(date +%s)
+      run: docker push ${{ steps.docker_tag.outputs.DOCKER_TAG }}
