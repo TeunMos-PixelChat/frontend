@@ -12,6 +12,27 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag frontend:$(date +%s)
-    - name: Push the Docker image to GitHub Container Registry
+      run: docker build . --file Dockerfile --tag newbuild:new
+    - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+    - name: Tag the Docker image
+      run: |
+        BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+        docker tag newbuild:new ghcr.io/${{ github.repository }}:$BRANCH_NAME-$(date +%s)
+    - name: Push the Docker image
+      run: |
+        BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+        docker push ghcr.io/${{ github.repository }}:$BRANCH_NAME-$(date +%s)
+
+
+
+
+#     run: |
+#     BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+#     docker tag frontend:$(date +%s) ghcr.io/${{ github.repository }}:$BRANCH_NAME-$(date +%s)
+# - name: Push the Docker image
+#   run: |
+#     BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//-/g')
+#     docker push ghcr.io/${{ github.repository }}:$BRANCH_NAME-$(date +%s)
+#   run: docker tag frontend:$(date +%s) ghcr.io/${{ github.repository }}:$(date +%s)
+# - run: docker push ghcr.io/${{ github.repository }}:$(date +%s)
