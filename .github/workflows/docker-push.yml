@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
     - uses: actions/checkout@v3
     - name: extract docker tag
@@ -18,7 +21,7 @@ jobs:
         DOCKER_TAG=$(echo $DOCKER_TAG_UNFORMATTED | tr '[:upper:]' '[:lower:]')
         echo "tag=$DOCKER_TAG">> $GITHUB_OUTPUT
       id: docker_tag
-      
+
     - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Build the Docker image
