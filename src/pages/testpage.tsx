@@ -65,9 +65,7 @@ export default function Home() {
             Refetch data from backend
           </Button>
           <Stack>
-            <Code>Backend url: {apiURL}</Code>
             <Code>Env: {process.env.NODE_ENV}</Code>
-            <Code>Branch: {process.env.REACT_APP_BRANCH}</Code>
           </Stack>
         </Flex>
       </Center>
