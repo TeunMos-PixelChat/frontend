@@ -79,6 +79,8 @@
 .shellInnerContent {
     border-radius: 20px 0 0 0 ;
     max-height: calc(100% - var(--shell-inner-header-hight));
+    border-left: 1px solid var(--shell-border-color);
+    border-top: 1px solid var(--shell-border-color);
 }
 
 

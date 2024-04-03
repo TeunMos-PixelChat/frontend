@@ -13,7 +13,8 @@ const theme = createTheme({
   primaryShade: 5,
   autoContrast: true,
   colors: {
-    //dark: ['RGB(220, 220, 220)', 'RGB(185, 185, 185)', 'RGB(160, 160, 160)', 'RGB(60, 60, 60)', 'RGB(45, 45, 45)', 'RGB(30, 30, 30)', 'RGB(20, 20, 20)', 'RGB(5, 5, 5)', 'RGB(5, 5, 5)', 'RGB(0, 0, 0)'],
+    //                                                                                                              Default-hover    Default (big-sidebar)   Body            ?                ?
+    dark: ['RGB(220, 220, 220)', 'RGB(185, 185, 185)', 'RGB(160, 160, 160)', 'RGB(60, 60, 60)', 'RGB(45, 45, 45)', 'RGB(45, 45, 45)', 'RGB(30, 30, 30)',    'RGB(15, 15, 15)', 'RGB(5, 5, 5)', 'RGB(0, 0, 0)'],
     puple: ['', '', '', '', '', '#ED245D', '', '', '', '']
   },
 });

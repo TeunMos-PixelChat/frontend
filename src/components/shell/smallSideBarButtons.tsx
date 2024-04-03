@@ -4,47 +4,48 @@ import styles from "./smallSideBar.module.css";
 import GoogleIcon from "../googleIcon";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export type navButton = "home" | "search" | "notifications";
+
+export type Page = {
+  path: string; // Path to the page
+  icon: string; // Google Icon name
+  title: string; // Title of the page
+};
 
 export default function SmallSidebarButtons() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [activatedButton, setActivatedButton] = useState<navButton>("home");
+  const [activatedButton, setActivatedButton] = useState<typeof pages[number]["path"]>("home");
 
+  const pages: Page[] = [
+    { path: "/", icon: "home", title: "Home" },
+    { path: "/search", icon: "search", title: "Search" },
+    { path: "/notifications", icon: "notifications", title: "Notifications" },
+  ];
 
   useEffect(() => {
     const path = location.pathname.split("/")[1] ?? "";
     if (path === "") {
-      setActivatedButton("home");
+      setActivatedButton("/");
     } else {
-      setActivatedButton(path as navButton);
+      setActivatedButton("/" + path);
     }
     
   }, [location]);
 
-  function navigateTo(path: string, button: navButton) {
-    setActivatedButton(button);
-    navigate(path);
+  function navigateTo(page: Page) {
+    setActivatedButton(page.title.toLowerCase());
+    navigate(page.path);
   }
 
   return (
     <Center className={styles.container}>
       <Stack>
-        <SidebarButton
-          icon="home"
-          active={activatedButton === "home"}
-          onClick={() => navigateTo("/", "home")}
-        />
-        <SidebarButton
-          icon="search"
-          active={activatedButton === "search"}
-          onClick={() => navigateTo("/search", "search")}
-        />
-        <SidebarButton
-          icon="notifications"
-          active={activatedButton === "notifications"}
-          onClick={() => navigateTo("/notifications", "notifications")}
-        />
+        {pages.map((page) => (
+          <SidebarButton
+          icon={page.icon}
+          active={activatedButton === page.path}
+          onClick={() => navigateTo(page)}
+        />))}
       </Stack>
     </Center>
   );

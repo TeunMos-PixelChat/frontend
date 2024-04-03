@@ -1,6 +1,9 @@
 :root {
     --shell-body-color: var( --mantine-color-body);
+    
     --shell-big-sidebar-color: var(--mantine-color-default);
+    
+    /* --shell-small-sidebar-color: var(--mantine-color-default-hover);s */
     --shell-small-sidebar-color: var(--mantine-color-default-hover);
     
     --shell-inner-header-color: var(--shell-big-sidebar-color);
@@ -13,6 +16,9 @@
 
     --big-sidebar-width: 250px;
     --shell-small-sidebar-width: var(--shell-header-height);
+
+
+    --shell-border-color: var(--mantine-color-default-border);
 }
 
 .spacer {
