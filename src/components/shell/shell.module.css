@@ -34,6 +34,7 @@
 .bigSidebarContainer {
     display: flex;
     flex-direction: column;
+    min-width: var(--big-sidebar-width);
     width: var(--big-sidebar-width);
     height: 100%;
     background-color: var(--shell-footer-color);
