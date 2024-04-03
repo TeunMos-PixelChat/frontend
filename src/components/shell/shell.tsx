@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './shell.module.css';
 import SmallSidebarButtons from './smallSideBarButtons';
+import ProfileBanner from '../profilebanner';
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -25,7 +26,7 @@ export default function Layout({ children, showBigSidebar = true }: LayoutProps)
               BIGSIDEBAR
             </div>
             <div className={styles.bigSidebarFooter}>
-              <h1>Big Sidebar Footer</h1>
+              <ProfileBanner/>
             </div>
           </div>)
         }
