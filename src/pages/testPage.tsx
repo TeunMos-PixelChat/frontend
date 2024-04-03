@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Code, Stack, Loader, Flex, Button } from '@mantine/core';
+import { Group, Center, Code, Stack, Loader, Flex, Button, Title } from '@mantine/core';
 import axios from 'axios';
 import { InlineCodeHighlight } from '@mantine/code-highlight';
+import InnerHeader from '../components/shell/innerHeader';
 
 // use webRTC to create a voice chat
 // async function initwebRTC() {
@@ -21,7 +22,7 @@ import { InlineCodeHighlight } from '@mantine/code-highlight';
 // }
 
 
-export default function Home() {
+export default function TestPage() {
   const [response, setResponse] = React.useState<object | undefined>();
 
   // use "api" if there is no REACT_APP_API_URL, which is when using the gateway
@@ -47,29 +48,35 @@ export default function Home() {
 
 
   return (
-    <Group style={{display: "block"}}>
-      <Center h={400}>
-        <Flex
-          gap="md"
-          justify="flex-start"
-          align="center"
-          direction="column"
-          wrap="wrap" 
-          style={{margin:"30px"}}>
-          
-          {response ? (
-            <InlineCodeHighlight style={{fontSize: 25, fontWeight: 600}} code={ JSON.stringify(response, null, 2) } language="json" />
-          ) : (
-            <Loader />
-          )}
-          <Button onClick={getAPIData}>
-            Refetch data from backend
-          </Button>
-          <Stack>
-            <Code>Env: {process.env.NODE_ENV}</Code>
-          </Stack>
-        </Flex>
+    <InnerHeader content={
+      <Center h={"100%"} w={"fit-content"}>
+        <Title order={2}>Test Page</Title>
       </Center>
-    </Group>
+    }>
+      <Group style={{display: "block"}}>
+        <Center h={400}>
+          <Flex
+            gap="md"
+            justify="flex-start"
+            align="center"
+            direction="column"
+            wrap="wrap" 
+            style={{margin:"30px"}}>
+            
+            {response ? (
+              <InlineCodeHighlight style={{fontSize: 25, fontWeight: 600}} code={ JSON.stringify(response, null, 2) } language="json" />
+            ) : (
+              <Loader />
+            )}
+            <Button onClick={getAPIData}>
+              Refetch data from backend
+            </Button>
+            <Stack>
+              <Code>Env: {process.env.NODE_ENV}</Code>
+            </Stack>
+          </Flex>
+        </Center>
+      </Group>
+    </InnerHeader>
   );
 }

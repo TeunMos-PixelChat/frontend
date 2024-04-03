@@ -1,6 +1,24 @@
-import { Group, Skeleton } from "@mantine/core";
+import { Avatar, Group, Skeleton, Text } from "@mantine/core";
+import { UserContext } from "../util/userContext";
+import { useContext } from "react";
+
+
 
 export default function ProfileBanner() {
+  const { user } = useContext(UserContext);
+
+  if (user) {
+    return (
+      <Group dir="row" align="center" style={{width: "100%"}}>
+        <Avatar src={user.picture} alt={user.name} />
+        <Group w={"60%"} gap={"xs"}>
+          <Text>{user.name}</Text>
+          <Text>STATUS</Text>
+        </Group>
+      </Group>
+    );
+  }
+
   return (
       <Group dir="row" align="center" style={{width: "100%"}}>
         <Skeleton height={50} circle />

@@ -23,7 +23,7 @@ export default function Layout({ children, showBigSidebar = true }: LayoutProps)
         { showBigSidebar && (
           <div className={styles.bigSidebarContainer}>
             <div className={styles.bigSidebar}>
-              BIGSIDEBAR
+              
             </div>
             <div className={styles.bigSidebarFooter}>
               <ProfileBanner/>

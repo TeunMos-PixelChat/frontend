@@ -1,56 +1,55 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import Shell from "./components/shell/shell";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import TestPage from "./pages/testpage";
-import InnerHeader from "./components/shell/innerHeader";
-import { Button, Center } from "@mantine/core";
+import TestPage from "./pages/testPage";
+import { Button, Center, Text } from "@mantine/core";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthShell from "./components/shell/authShell";
 import { UserContext } from "./util/userContext";
+import SettingsPage from "./pages/settingsPage";
 
 function App() {
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
+  const { loginWithRedirect, user, isAuthenticated, isLoading } = useAuth0();
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     setUser(user);
   }, [user, setUser]);
 
-
-  if (!isAuthenticated) {
+  if (isLoading) {
     return (
-      <AuthShell isLoading={false}>
-        <Button onClick={() => loginWithRedirect()}>
-          Login 
-        </Button>
-        ({isLoading ? "true" : "false"})
-        <Button onClick={() => logout()}>
-          Logout
-        </Button>
-      </AuthShell>
+      <AuthShell isLoading={isLoading}/>
     );
   }
 
-  
+  if (!isAuthenticated) {
+    // Uncomment this block to show a login button
+
+    // return (
+    //   <AuthShell isLoading={isLoading}>
+    //     <Button onClick={() => loginWithRedirect()}>Login</Button>
+    //   </AuthShell>
+    // );
+
+    loginWithRedirect();
+    return null;
+  }
 
   return (
     <BrowserRouter>
       <Shell>
         <Routes>
+          <Route index element={<TestPage />} />
           <Route
-            index
-            element={
-              <InnerHeader>
-                <TestPage />
-              </InnerHeader>
-            }
-          />
+            path="/settings" element={<SettingsPage/>} />
           <Route
             path="*"
             element={
-              <Center>Not found `{isAuthenticated ? "true" : "false"}`</Center>
+              <Center h={"100%"}>
+                <Text size="xl">Page not found</Text>
+              </Center>
             }
           />
         </Routes>

@@ -1,10 +1,10 @@
 import styles from './shell.module.css';
 
-export default function InnerHeader({ children }: { children: React.ReactNode }) {
+export default function InnerHeader({ children, content }: { children: React.ReactNode, content?: React.ReactNode }) {
   return (
     <div className={styles.innerHeaderContainer}>
       <div className={styles.innerHeader}>
-        Inner Header
+        {content}
       </div>
       <div className={styles.shellInnerContent}>
         {children}
