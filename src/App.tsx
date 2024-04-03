@@ -3,7 +3,7 @@ import Shell from "./components/shell/shell";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import TestPage from "./pages/testPage";
-import { Button, Center, Text } from "@mantine/core";
+import { Center, Text } from "@mantine/core";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthShell from "./components/shell/authShell";
