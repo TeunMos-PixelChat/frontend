@@ -14,6 +14,8 @@ function App() {
   const { loginWithRedirect, user, isAuthenticated, isLoading } = useAuth0();
   const { setUser } = useContext(UserContext);
 
+  console.log("test", process.env.REACT_APP_TEST);
+
   useEffect(() => {
     setUser(user);
   }, [user, setUser]);

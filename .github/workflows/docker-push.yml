@@ -25,7 +25,11 @@ jobs:
     - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag newbuild:new
+      run: docker build . --file Dockerfile --tag newbuild:new \
+        --build-arg REACT_APP_API_URL="api" \
+        --build-arg REACT_APP_TEST=bababoey \
+        --build-arg REACT_APP_AUTH0_DOMAIN={{ secrets.REACT_APP_AUTH0_DOMAIN }} \
+        --build-arg REACT_APP_AUTH0_CLIENT_ID={{ secrets.REACT_APP_AUTH0_CLIENT_ID }} \
     - name: Tag the Docker image
       run: docker tag newbuild:new ghcr.io/${{ steps.docker_tag.outputs.tag }}
     - name: Push the Docker image
