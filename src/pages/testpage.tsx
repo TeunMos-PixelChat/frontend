@@ -54,7 +54,8 @@ export default function Home() {
           justify="flex-start"
           align="center"
           direction="column"
-          wrap="wrap">
+          wrap="wrap" 
+          style={{margin:"30px"}}>
           
           {response ? (
             <InlineCodeHighlight style={{fontSize: 25, fontWeight: 600}} code={ JSON.stringify(response, null, 2) } language="json" />
