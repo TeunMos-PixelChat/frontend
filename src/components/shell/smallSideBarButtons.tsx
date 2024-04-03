@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ActionIcon, Center, Stack } from "@mantine/core";
+import { ActionIcon, Center, Flex, Stack } from "@mantine/core";
 import styles from "./smallSideBar.module.css";
 import GoogleIcon from "../googleIcon";
 import { useNavigate, useLocation } from "react-router-dom";
+import ColorSchemeButton from "../colorschemebutton";
 
 
 export type Page = {
@@ -38,7 +39,7 @@ export default function SmallSidebarButtons() {
   }
 
   return (
-    <Center className={styles.container}>
+    <Center className={styles.container} style={{ flexDirection: "column" }} h={"100%"}>
       <Stack>
         {pages.map((page) => (
           <SidebarButton
@@ -47,6 +48,19 @@ export default function SmallSidebarButtons() {
           onClick={() => navigateTo(page)}
         />))}
       </Stack>
+
+      <Flex h={"100%"} style={{ flexDirection: "column", justifyContent: "flex-end" }}>
+        <div style={{ flexGrow: 1 }} />
+        <Stack>
+          <ColorSchemeButton />
+          <SidebarButton
+            icon={"settings"}
+            active={activatedButton === "/settings"}
+            onClick={() => navigate("/settings")}
+          />
+        </Stack>
+        
+      </Flex>
     </Center>
   );
 }
