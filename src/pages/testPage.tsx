@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Group, Center, Code, Stack, Loader, Flex, Button, Title } from '@mantine/core';
+import { Group, Center, Code, Stack, Loader, Flex, Button } from '@mantine/core';
 import axios from 'axios';
 import { InlineCodeHighlight } from '@mantine/code-highlight';
 import InnerHeader from '../components/shell/innerHeader';
+import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 
 // use webRTC to create a voice chat
 // async function initwebRTC() {
@@ -49,9 +50,7 @@ export default function TestPage() {
 
   return (
     <InnerHeader content={
-      <Center h={"100%"} w={"fit-content"}>
-        <Title order={2}>Test Page</Title>
-      </Center>
+      <DefaultInnerHeaderContent pageTitle="Test Page"/>
     }>
       <Group style={{display: "block"}}>
         <Center h={400}>

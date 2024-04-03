@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-import MantineFunctions from './MantineFunctions';
+import MantineFunctions from './util/MantineFunctions';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { UserContextProvider } from './util/userContext';
 

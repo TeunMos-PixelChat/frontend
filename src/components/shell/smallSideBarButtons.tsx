@@ -3,8 +3,6 @@ import { ActionIcon, Center, Flex, Stack } from "@mantine/core";
 import styles from "./smallSideBar.module.css";
 import GoogleIcon from "../googleIcon";
 import { useNavigate, useLocation } from "react-router-dom";
-import ColorSchemeButton from "../colorschemebutton";
-
 
 export type Page = {
   path: string; // Path to the page
@@ -52,7 +50,7 @@ export default function SmallSidebarButtons() {
       <Flex h={"100%"} style={{ flexDirection: "column", justifyContent: "flex-end" }}>
         <div style={{ flexGrow: 1 }} />
         <Stack>
-          <ColorSchemeButton />
+          {/* <ColorSchemeButton /> */}
           <SidebarButton
             icon={"settings"}
             active={activatedButton === "/settings"}

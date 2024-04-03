@@ -13,7 +13,7 @@ export default function ProfileBanner() {
         <Avatar src={user.picture} alt={user.name} />
         <Group w={"60%"} gap={"xs"}>
           <Text>{user.name}</Text>
-          <Text>STATUS</Text>
+          {/* <Text>STATUS</Text> */}
         </Group>
       </Group>
     );
