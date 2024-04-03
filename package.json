@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
     "@mantine/code-highlight": "7.7.1",
     "@mantine/core": "7.7.1",
     "@mantine/hooks": "7.7.1",
