@@ -46,6 +46,8 @@
     flex-grow: 1;
     background-color: var(--shell-big-sidebar-color);
     border-radius: 0 0 0 20px ;
+    border-left: var(--shell-big-sidebar-border);
+    border-bottom: var(--shell-big-sidebar-border);
 }
 
 .bigSidebarFooter {

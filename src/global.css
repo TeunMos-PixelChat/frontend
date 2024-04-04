@@ -3,7 +3,7 @@
     
     --shell-big-sidebar-color: var(--mantine-color-default);
     
-    --shell-small-sidebar-color: var(--mantine-color-body);
+    --shell-small-sidebar-color: var(--shell-body-color);
     /* --shell-small-sidebar-colors: var(--mantine-color-default-hover); */
     
     --shell-inner-header-color: var(--shell-big-sidebar-color);
@@ -19,6 +19,11 @@
 
 
     --shell-border-color: var(--mantine-color-default-border);
+}
+
+:root[data-mantine-color-scheme="light"] {
+    --shell-big-sidebar-color: rgb(236, 236, 236);
+    --shell-big-sidebar-border: 1px solid var(--mantine-color-default-border);
 }
 
 .spacer {
