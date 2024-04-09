@@ -21,10 +21,18 @@ import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderCon
 
   
 // }
+import { useAuth0 } from "@auth0/auth0-react";
+
+
 
 
 export default function TestPage() {
   const [response, setResponse] = React.useState<object | undefined>();
+  const { getAccessTokenSilently, user } = useAuth0();
+  // const { user } = useContext(UserContext);
+
+  useEffect(() => {
+  }, [getAccessTokenSilently, user?.sub]);
 
   // use "api" if there is no REACT_APP_API_URL, which is when using the gateway
   const apiURL = process.env.REACT_APP_API_URL || "api";
@@ -73,6 +81,9 @@ export default function TestPage() {
             <Stack>
               <Code>Env: {process.env.NODE_ENV}</Code>
             </Stack>
+
+
+
           </Flex>
         </Center>
       </Group>

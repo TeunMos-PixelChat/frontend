@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import Shell from "./components/shell/shell";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -7,18 +7,12 @@ import { Center, Text } from "@mantine/core";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthShell from "./components/shell/authShell";
-import { UserContext } from "./util/userContext";
 import SettingsPage from "./pages/settingsPage";
 
 function App() {
-  const { loginWithRedirect, user, isAuthenticated, isLoading } = useAuth0();
-  const { setUser } = useContext(UserContext);
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
   console.log("test", process.env.REACT_APP_TEST);
-
-  useEffect(() => {
-    setUser(user);
-  }, [user, setUser]);
 
   if (isLoading) {
     return (

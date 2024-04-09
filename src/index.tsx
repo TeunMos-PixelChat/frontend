@@ -17,16 +17,18 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MantineFunctions>
-      <UserContextProvider>
         <Auth0Provider
           domain={process.env.REACT_APP_AUTH0_DOMAIN as string}
           clientId={process.env.REACT_APP_AUTH0_CLIENT_ID as string}
           authorizationParams={{
-            redirect_uri: window.location.origin
+            redirect_uri: window.location.origin,
+            audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN as string}/api/v2/`,
+            scope: "read:current_user update:current_user_metadata read:current_user_metadata",
           }}>
-          <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </Auth0Provider>
-      </UserContextProvider>
     </MantineFunctions>
   </React.StrictMode>
 );
