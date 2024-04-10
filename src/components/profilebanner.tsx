@@ -1,4 +1,4 @@
-import { Avatar, Group, Skeleton, Text } from "@mantine/core";
+import { Avatar, Group, Skeleton, Stack, Text } from "@mantine/core";
 import { UserContext } from "../util/userContext";
 import { useContext } from "react";
 
@@ -11,10 +11,10 @@ export default function ProfileBanner() {
     return (
       <Group dir="row" align="center" style={{width: "100%"}}>
         <Avatar src={user.picture} alt={user.name} />
-        <Group w={"60%"} gap={"xs"}>
+        <Stack w={"60%"} gap={0}>
           <Text>{user.name}</Text>
-          {/* <Text>STATUS</Text> */}
-        </Group>
+          <Text c={'blue'} fw={500} size="sm">Online</Text>
+        </Stack>
       </Group>
     );
   }

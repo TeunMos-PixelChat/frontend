@@ -10,6 +10,7 @@
 
 
     --shell-footer-color: var(--shell-small-sidebar-color);
+    --shell-footer-height: 75px;
 
     --shell-header-height: 50px;
     --shell-inner-header-hight: var(--shell-header-height);
