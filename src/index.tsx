@@ -22,7 +22,8 @@ root.render(
           clientId={process.env.REACT_APP_AUTH0_CLIENT_ID as string}
           authorizationParams={{
             redirect_uri: window.location.origin,
-            audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN as string}/api/v2/`,
+            // audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN as string}/api/v2/`,
+            audience: `http://localhost/`,
             scope: "read:current_user update:current_user_metadata read:current_user_metadata",
           }}>
           <UserContextProvider>

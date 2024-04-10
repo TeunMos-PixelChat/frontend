@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Group, Center, Code, Stack, Loader, Flex, Button } from '@mantine/core';
 import axios from 'axios';
-import { InlineCodeHighlight } from '@mantine/code-highlight';
+import { CodeHighlight } from '@mantine/code-highlight';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 
@@ -42,11 +42,22 @@ export default function TestPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function getAPIData() {
+  async function getAPIData() {
+    const accessToken = await getAccessTokenSilently({
+      authorizationParams: {
+        audience: `http://localhost/`,
+        scope: "read:current_user",
+      },
+    });
+
     setResponse(undefined);
     axios.post(`${apiURL}/test`, {
       message: "hello from frontend",
-    }).then(res => {
+    },
+    {headers: {
+      Authorization: `Bearer ${accessToken}`,
+    }}
+    ).then(res => {
       console.log(res);
       setResponse(res.data);
     }).catch(err => {
@@ -61,7 +72,7 @@ export default function TestPage() {
       <DefaultInnerHeaderContent pageTitle="Test Page"/>
     }>
       <Group style={{display: "block"}}>
-        <Center h={400}>
+        <Center h={"90vh"}>
           <Flex
             gap="md"
             justify="flex-start"
@@ -71,7 +82,7 @@ export default function TestPage() {
             style={{margin:"30px"}}>
             
             {response ? (
-              <InlineCodeHighlight style={{fontSize: 25, fontWeight: 600}} code={ JSON.stringify(response, null, 2) } language="json" />
+              <CodeHighlight style={{fontSize: 25, fontWeight: 600, maxWidth:"80vw"}} code={ JSON.stringify(response, null, 2) } language="json" />
             ) : (
               <Loader />
             )}
