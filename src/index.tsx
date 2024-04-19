@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 
 import MantineFunctions from './util/mantineFunctions';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { UserContextProvider } from './util/userContext';
+import { UserContextProvider } from './util/providers/userContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

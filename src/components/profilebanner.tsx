@@ -1,5 +1,5 @@
 import { Avatar, Group, Skeleton, Stack, Text } from "@mantine/core";
-import { UserContext } from "../util/userContext";
+import { UserContext } from "../util/providers/userContext";
 import { useContext } from "react";
 
 
