@@ -1,36 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Group, Center, Code, Stack, Loader, Flex, Button } from '@mantine/core';
 import axios from 'axios';
 import { CodeHighlight } from '@mantine/code-highlight';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
-
-// use webRTC to create a voice chat
-// async function initwebRTC() {
-//   const pc = new RTCPeerConnection();
-
-//   // Get local media stream
-//   const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//   stream.getTracks().forEach(track => pc.addTrack(track, stream));
-
-//   // Create an offer
-//   const offer = await pc.createOffer();
-//   await pc.setLocalDescription(offer);
-
-//   // Send the offer to the remote peer
-
-  
-// }
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUserMetadata } from '../util/auth0ApiFunctions';
 
+import { UserContext } from '../util/providers/userContext';
 
 
 
 export default function TestPage() {
   const [response, setResponse] = React.useState<object | undefined>();
   const { getAccessTokenSilently, user } = useAuth0();
-  // const { user } = useContext(UserContext);
+  const { fetchUser } = useContext(UserContext);
 
   useEffect(() => {
   }, [getAccessTokenSilently, user?.sub]);
@@ -66,11 +50,10 @@ export default function TestPage() {
   }
 
   async function getUserdata() {
-    const userdata = await getUserMetadata(user?.sub, getAccessTokenSilently);
+    const userdata = await fetchUser();
     console.log(userdata);
     setResponse(userdata);
   }
-
 
 
   return (
@@ -95,6 +78,11 @@ export default function TestPage() {
             <Button onClick={getAPIData}>
               Refetch data from backend
             </Button>
+
+            <Button variant='default' onClick={getUserdata}>
+              Get user metadata
+            </Button>
+
             <Stack>
               <Code>Env: {process.env.NODE_ENV}</Code>
               <Code>Audience: {process.env.REACT_APP_AUTH0_AUDIENCE}</Code>
@@ -102,9 +90,6 @@ export default function TestPage() {
               <Code>Client ID: {process.env.REACT_APP_AUTH0_CLIENT_ID}</Code>
             </Stack>
 
-            <Button onClick={getUserdata}>
-              Get user metadata
-            </Button>
 
           </Flex>
         </Center>
