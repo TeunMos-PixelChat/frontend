@@ -10,6 +10,9 @@ export async function getUserMetadata(userId: User["sub"], getAccessTokenSilentl
       scope: "read:current_user_metadata",
     },
   });
+  console.log("accessToken")
+  console.log(accessToken);
+
 
   const userDetailsByIdUrl = `https://${domain}/api/v2/users/${userId}`;
 

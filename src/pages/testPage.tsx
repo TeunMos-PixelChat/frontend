@@ -47,7 +47,6 @@ export default function TestPage() {
     const accessToken = await getAccessTokenSilently({
       authorizationParams: {
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-        scope: "read:current_user",
       },
     });
 
