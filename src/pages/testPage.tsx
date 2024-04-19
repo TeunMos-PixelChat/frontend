@@ -5,7 +5,6 @@ import { CodeHighlight } from '@mantine/code-highlight';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUserMetadata } from '../util/auth0ApiFunctions';
 
 import { UserContext } from '../util/providers/userContext';
 
@@ -61,7 +60,7 @@ export default function TestPage() {
       <DefaultInnerHeaderContent pageTitle="Test Page"/>
     }>
       <Group style={{display: "block"}}>
-        <Center h={"90vh"}>
+        <Center h={"80vh"}>
           <Flex
             gap="md"
             justify="flex-start"

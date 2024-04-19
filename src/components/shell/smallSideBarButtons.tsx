@@ -37,19 +37,20 @@ export default function SmallSidebarButtons() {
   }
 
   return (
-    <Center className={styles.container} style={{ flexDirection: "column" }} h={"100%"}>
-      <Stack>
+    <Center className={styles.container}>
+      <Stack className={styles.buttonscontainer}>
         {pages.map((page) => (
           <SidebarButton
+          key={page.path}
           icon={page.icon}
           active={activatedButton === page.path}
           onClick={() => navigateTo(page)}
         />))}
       </Stack>
 
-      <Flex h={"100%"} style={{ flexDirection: "column", justifyContent: "flex-end" }}>
+      <Flex h={"100%"} className={styles.bottombuttons}>
         <div style={{ flexGrow: 1 }} />
-        <Stack>
+        <Stack className={styles.buttonscontainer}>
           {/* <ColorSchemeButton /> */}
           <SidebarButton
             icon={"settings"}

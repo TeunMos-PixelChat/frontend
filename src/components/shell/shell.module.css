@@ -40,6 +40,9 @@
     background-color: var(--shell-footer-color);
 }
 
+
+
+
 .bigSidebar {
     max-height: 100%;
     width: 100%;
@@ -98,4 +101,28 @@
     height: var(--shell-inner-header-hight);
 }
 
+/* HACKY MOBILE VIEW */
+@media screen and (max-width: 750px) {
+    .bigSidebarContainer {
+        display: none;
+    }
 
+    .shellComponentsContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        height: 100%;
+        width: 100%;
+    }
+
+    .smallSidebar {
+        display: flex;
+        flex-direction: row;
+        height: var(--shell-small-sidebar-height);
+        width: 100%;
+        border-top: var(--shell-big-sidebar-border);
+    }
+
+    .shellInnerContent {
+        border-radius: 0 0 0 0 ;
+    }
+}
