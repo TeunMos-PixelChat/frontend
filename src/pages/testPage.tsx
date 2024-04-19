@@ -91,6 +91,9 @@ export default function TestPage() {
             </Button>
             <Stack>
               <Code>Env: {process.env.NODE_ENV}</Code>
+              <Code>Audience: {process.env.REACT_APP_AUTH0_AUDIENCE}</Code>
+              <Code>Auth domain: {process.env.REACT_APP_AUTH0_DOMAIN}</Code>
+              <Code>Client ID: {process.env.REACT_APP_AUTH0_CLIENT_ID}</Code>
             </Stack>
 
           </Flex>

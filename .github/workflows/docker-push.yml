@@ -27,10 +27,10 @@ jobs:
     - name: Build the Docker image
       run: docker build
         --build-arg REACT_APP_API_URL="api"
-        --build-arg REACT_APP_TEST=bababoey
+        --build-arg REACT_APP_TEST=test
         --build-arg REACT_APP_AUTH0_DOMAIN=${{ secrets.REACT_APP_AUTH0_DOMAIN }}
         --build-arg REACT_APP_AUTH0_CLIENT_ID=${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
-        --build-arg REACT_APP_AUTH0_AUDIENCE=${{ secrets.REACT_APP_AUTH0_AUDIENCE }}
+        --build-arg REACT_APP_AUTH0_AUDIENCE="pixel-gate"
         --file Dockerfile --tag newbuild:new .
     - name: Tag the Docker image
       run: docker tag newbuild:new ghcr.io/${{ steps.docker_tag.outputs.tag }}
