@@ -22,6 +22,7 @@ import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderCon
   
 // }
 import { useAuth0 } from "@auth0/auth0-react";
+import { getUserMetadata } from '../util/auth0ApiFunctions';
 
 
 
@@ -65,6 +66,12 @@ export default function TestPage() {
     });
   }
 
+  async function getUserdata() {
+    const userdata = await getUserMetadata(user?.sub, getAccessTokenSilently);
+    console.log(userdata);
+    setResponse(userdata);
+  }
+
 
 
   return (
@@ -95,6 +102,10 @@ export default function TestPage() {
               <Code>Auth domain: {process.env.REACT_APP_AUTH0_DOMAIN}</Code>
               <Code>Client ID: {process.env.REACT_APP_AUTH0_CLIENT_ID}</Code>
             </Stack>
+
+            <Button onClick={getUserdata}>
+              Get user metadata
+            </Button>
 
           </Flex>
         </Center>
