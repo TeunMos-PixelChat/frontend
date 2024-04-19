@@ -45,7 +45,7 @@ export default function TestPage() {
   async function getAPIData() {
     const accessToken = await getAccessTokenSilently({
       authorizationParams: {
-        audience: `http://localhost/`,
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         scope: "read:current_user",
       },
     });
