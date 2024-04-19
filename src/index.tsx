@@ -24,7 +24,8 @@ root.render(
             redirect_uri: window.location.origin,
             // audience: `https://${process.env.REACT_APP_AUTH0_DOMAIN as string}/api/v2/`,
             audience: process.env.REACT_APP_AUTH0_AUDIENCE || 'pixelchat-gateway-identifier',
-            scope: "read:current_user update:current_user_metadata read:current_user_metadata",
+            scope: "read:current_user update:current_user_metadata",
+            // prompt: "consent"
           }}>
           <UserContextProvider>
             <App />

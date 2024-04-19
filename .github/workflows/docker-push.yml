@@ -27,10 +27,10 @@ jobs:
     - name: Build the Docker image
       run: docker build
         --build-arg REACT_APP_API_URL="api"
-        --build-arg REACT_APP_TEST=test
-        --build-arg REACT_APP_AUTH0_DOMAIN=${{ secrets.REACT_APP_AUTH0_DOMAIN }}
-        --build-arg REACT_APP_AUTH0_CLIENT_ID=${{ secrets.REACT_APP_AUTH0_CLIENT_ID }}
-        --build-arg REACT_APP_AUTH0_AUDIENCE="pixel-gate"
+        --build-arg REACT_APP_TEST="testing testing 123"
+        --build-arg REACT_APP_AUTH0_DOMAIN="dev-1qp5piklx43am651.us.auth0.com"
+        --build-arg REACT_APP_AUTH0_CLIENT_ID="ivx5pJfcdk2R0ZfIM7rl8MCRNIQ8Q0RO"
+        --build-arg REACT_APP_AUTH0_AUDIENCE="pixelchat-gateway-identifier"
         --file Dockerfile --tag newbuild:new .
     - name: Tag the Docker image
       run: docker tag newbuild:new ghcr.io/${{ steps.docker_tag.outputs.tag }}
