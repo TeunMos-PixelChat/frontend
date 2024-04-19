@@ -91,10 +91,7 @@ export default function TestPage() {
             </Button>
             <Stack>
               <Code>Env: {process.env.NODE_ENV}</Code>
-              <Code>Test</Code>
             </Stack>
-
-
 
           </Flex>
         </Center>
