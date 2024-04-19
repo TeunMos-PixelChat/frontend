@@ -16,6 +16,8 @@ export function UserContextProvider({
   const [user, setUser] = useState<User | undefined>(undefined);
 
   useEffect(() => {
+    console.log("auth0user", auth0user);
+
     if (auth0user?.sub) {
       getUserMetadata(auth0user.sub, getAccessTokenSilently).then((user) => {
         console.log("user", user);

@@ -7,7 +7,7 @@ export async function getUserMetadata(userId: User["sub"], getAccessTokenSilentl
   const accessToken = await getAccessTokenSilently({
     authorizationParams: {
       audience: `https://${domain}/api/v2/`,
-      scope: "read:current_user_metadata",
+      scope: "read:current_user",
     },
   });
   console.log("accessToken")
