@@ -13,7 +13,7 @@ on:
             - completed
 jobs:
     deploy:
-        runs-on: ubuntu-latest
+        runs-on: self-hosted
         steps:
         - name: restart the container
           run: kubectl rollout restart deployment ${{ env.PROJECT_NAME }}
