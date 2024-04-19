@@ -28,8 +28,8 @@ jobs:
       run: docker build
         --build-arg REACT_APP_API_URL="api"
         --build-arg REACT_APP_TEST="testing testing 123"
-        --build-arg REACT_APP_AUTH0_DOMAIN="dev-1qp5piklx43am651.us.auth0.com"
-        --build-arg REACT_APP_AUTH0_CLIENT_ID="ivx5pJfcdk2R0ZfIM7rl8MCRNIQ8Q0RO"
+        --build-arg REACT_APP_AUTH0_DOMAIN="pixelchat-production.eu.auth0.com"
+        --build-arg REACT_APP_AUTH0_CLIENT_ID="qrWdhhjWH9yTjP6H7h3T9uJsqsHtRHXv"
         --build-arg REACT_APP_AUTH0_AUDIENCE="pixelchat-gateway-identifier"
         --file Dockerfile --tag newbuild:new .
     - name: Tag the Docker image

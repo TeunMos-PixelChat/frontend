@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { User, useAuth0 } from "@auth0/auth0-react";
 import { getUserMetadata } from "../auth0ApiFunctions";
-import { time } from "console";
 
 
 
