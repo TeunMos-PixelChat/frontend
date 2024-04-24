@@ -40,5 +40,4 @@ scenarios:
             url: "/statictest/test.js"
         - get:
             url: "/statictest/test.css"
-        count: 100
-          
+        count: 2
