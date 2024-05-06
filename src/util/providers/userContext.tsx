@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { User, useAuth0 } from "@auth0/auth0-react";
+import { User, useAuth0, type GetTokenSilentlyOptions, type RedirectLoginOptions } from "@auth0/auth0-react";
 import { getUserMetadata } from "../auth0ApiFunctions";
 
 
@@ -19,7 +19,7 @@ export function UserContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { getAccessTokenSilently, getAccessTokenWithPopup, user: auth0user } = useAuth0();
+  const { getAccessTokenSilently, getAccessTokenWithPopup, loginWithRedirect, user: auth0user } = useAuth0();
   const [user, setUser] = useState<User | undefined>(undefined);
 
 
@@ -38,7 +38,7 @@ export function UserContextProvider({
   }, [auth0user, getAccessTokenSilently, getAccessTokenWithPopup]);
 
   async function getUserData(userId: User["sub"]): Promise<User | undefined> {
-    const authparams = {
+    const authparams: GetTokenSilentlyOptions| RedirectLoginOptions = {
       authorizationParams: {
         audience: `https://${domain}/api/v2/`,
         scope: "read:current_user",
@@ -50,11 +50,13 @@ export function UserContextProvider({
       return await getUserMetadata(userId, accessToken);
     } catch (err) {
       console.error(err);
-      const accessToken = await getAccessTokenWithPopup(authparams, { popup: window.open()});
-      if (!accessToken) {
-        return undefined;
-      }
-      return await getUserMetadata(userId, accessToken);
+      
+      // const accessToken = await getAccessTokenWithPopup(authparams, { popup: window.open()});
+      let redirectparams = authparams as RedirectLoginOptions;
+
+      redirectparams.appState = { targetUrl: window.location.pathname };
+
+      await loginWithRedirect(redirectparams);
     }
   }
 
