@@ -1,5 +1,5 @@
 config:
-  target: http://10.43.120.60:3000
+  target: http://10.43.13.23:3000
   phases:
     - duration: 30
       arrivalRate: 1
