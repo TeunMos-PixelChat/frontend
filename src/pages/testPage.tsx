@@ -34,7 +34,7 @@ export default function TestPage() {
     });
 
     setResponse(undefined);
-    axios.post(`${apiURL}/test`, {
+    axios.post(`${apiURL}/message/test`, {
       message: "hello from frontend",
     },
     {headers: {
