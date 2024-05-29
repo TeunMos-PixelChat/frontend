@@ -10,7 +10,8 @@ export const UserContext = createContext({
   user: undefined as User | undefined,
   fetchUser: async (): Promise<User | undefined> => {
     return undefined;
-  }
+  },
+  generalAccesToken: undefined as string | undefined,
 });
 
 
@@ -22,6 +23,8 @@ export function UserContextProvider({
   const { getAccessTokenSilently, getAccessTokenWithPopup, loginWithRedirect, user: auth0user } = useAuth0();
   const [user, setUser] = useState<User | undefined>(undefined);
 
+  const [generalAccesToken, setGeneralAccessToken] = useState<string | undefined>(undefined);
+
 
   useEffect(() => {
     console.log("auth0user", auth0user);
@@ -32,6 +35,17 @@ export function UserContextProvider({
       }).catch(err => {
         console.error(err);
         setUser(undefined);
+      });
+
+
+      getAccessTokenSilently({
+        authorizationParams: {
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+        },
+      }).then(accessToken => {
+        setGeneralAccessToken(accessToken);
+      }).catch(err => {
+        console.error(err);
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +88,7 @@ export function UserContextProvider({
   
 
   return (
-    <UserContext.Provider value={{ user, fetchUser }}>
+    <UserContext.Provider value={{ user, fetchUser, generalAccesToken }}>
       {children}
     </UserContext.Provider>
   );

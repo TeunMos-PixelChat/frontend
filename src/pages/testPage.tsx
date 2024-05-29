@@ -7,13 +7,14 @@ import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderCon
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { UserContext } from '../util/providers/userContext';
+import { getAllUsersExceptMe } from '../util/userServiceFunctions';
 
 
 
 export default function TestPage() {
   const [response, setResponse] = React.useState<object | undefined>();
   const { getAccessTokenSilently, user } = useAuth0();
-  const { fetchUser } = useContext(UserContext);
+  const { user: userman } = useContext(UserContext);
 
   useEffect(() => {
   }, [getAccessTokenSilently, user?.sub]);
@@ -47,29 +48,13 @@ export default function TestPage() {
       console.error(err);
     });
 
-    const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-
-    const accessToken2 = await getAccessTokenSilently({
-      authorizationParams: {
-        audience: `https://${domain}/api/v2/`,
-      },
-    });
-
-    axios.get(`https://${domain}/api/v2/users`, {
-      headers: {
-        Authorization: `Bearer ${accessToken2}`,
-      },
-    }).then(res => {
+    await getAllUsersExceptMe(accessToken, user?.sub || "").then(res => {
       console.log(res);
-    }).catch(err => {
-      console.error(err);
     });
   }
 
   async function getUserdata() {
-    const userdata = await fetchUser();
-    console.log(userdata);
-    setResponse(userdata);
+    setResponse(userman);
   }
 
 

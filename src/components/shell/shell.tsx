@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './shell.module.css';
 import SmallSidebarButtons from './smallSideBarButtons';
 import ProfileBanner from '../profilebanner';
+import FriendList from '../friendlist';
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ export default function Layout({ children, showBigSidebar = true }: LayoutProps)
         { showBigSidebar && (
           <div className={styles.bigSidebarContainer}>
             <div className={styles.bigSidebar}>
-              
+              <FriendList/>
             </div>
             <div className={styles.bigSidebarFooter}>
               <ProfileBanner/>

@@ -8,6 +8,7 @@ import { Center, Text } from "@mantine/core";
 import { useAuth0 } from "@auth0/auth0-react";
 import AuthShell from "./components/shell/authShell";
 import SettingsPage from "./pages/settingsPage";
+import ChatPage from "./pages/chatPage";
 
 function App() {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
@@ -40,6 +41,8 @@ function App() {
           <Route index element={<TestPage />} />
           <Route
             path="/settings" element={<SettingsPage/>} />
+          <Route
+            path="/dm/:id" element={<ChatPage/>} />
           <Route
             path="*"
             element={
