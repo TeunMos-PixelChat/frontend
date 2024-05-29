@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getDmMessages, sendMessage, type GetMessagesResponse } from '../util/messageApiFunctions';
 import { UserContext } from '../util/providers/userContext';
-import { CodeHighlight } from '@mantine/code-highlight';
 import { ActionIcon, Card, Group, ScrollArea, Stack, TextInput, Text } from '@mantine/core';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';

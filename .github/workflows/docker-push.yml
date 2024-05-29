@@ -26,7 +26,7 @@ jobs:
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
     - name: Build the Docker image
       run: docker build
-        --build-arg REACT_APP_API_URL="api"
+        --build-arg REACT_APP_API_URL="/api"
         --build-arg REACT_APP_TEST="testing testing 123"
         --build-arg REACT_APP_AUTH0_DOMAIN="pixelchat-production.eu.auth0.com"
         --build-arg REACT_APP_AUTH0_CLIENT_ID="qrWdhhjWH9yTjP6H7h3T9uJsqsHtRHXv"

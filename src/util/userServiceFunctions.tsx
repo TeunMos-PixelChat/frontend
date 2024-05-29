@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiURL = process.env.REACT_APP_API_URL || "api";
+const apiURL = process.env.REACT_APP_API_URL || "/api";
 
 export type GetUserResponse = {
   id: string;
