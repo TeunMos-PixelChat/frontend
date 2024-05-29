@@ -46,6 +46,24 @@ export default function TestPage() {
     }).catch(err => {
       console.error(err);
     });
+
+    const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+
+    const accessToken2 = await getAccessTokenSilently({
+      authorizationParams: {
+        audience: `https://${domain}/api/v2/`,
+      },
+    });
+
+    axios.get(`https://${domain}/api/v2/users`, {
+      headers: {
+        Authorization: `Bearer ${accessToken2}`,
+      },
+    }).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.error(err);
+    });
   }
 
   async function getUserdata() {
