@@ -10,9 +10,9 @@ export default function ProfileBanner() {
   if (user) {
     return (
       <Group dir="row" align="center" style={{width: "100%"}}>
-        <Avatar src={user.picture} alt={user.name} />
+        <Avatar src={user.picture} alt={user.nickname} />
         <Stack w={"60%"} gap={0}>
-          <Text>{user.name}</Text>
+          <Text>{user.nickname}</Text>
           <Text c={'blue'} fw={500} size="sm">Online</Text>
         </Stack>
       </Group>

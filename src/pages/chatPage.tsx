@@ -1,6 +1,6 @@
 
 
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { deleteMessage, getDmMessages, sendMessage, type GetMessagesResponse } from '../util/messageApiFunctions';
 import { UserContext } from '../util/providers/userContext';
@@ -8,11 +8,12 @@ import { ActionIcon, Group, ScrollArea, Stack, TextInput, Text, Flex, Avatar } f
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 import GoogleIcon from '../components/googleIcon';
-import { useScrollIntoView } from '@mantine/hooks';
 
 export default function ChatPage() {
   const { id: chatUserId } = useParams();
   const { generalAccesToken: accesToken } = useContext(UserContext);
+
+  const [isDoingSomething, setIsDoingSomething] = useState(false);
   
   const [chatMessages, setChatMessages] = useState<GetMessagesResponse['messages'] | undefined>();
   const [otherUser, setOtherUser] = useState<GetMessagesResponse['users']['other'] | undefined>();
@@ -24,43 +25,82 @@ export default function ChatPage() {
     }
     await sendMessage(accesToken, chatUserId, message);
 
-    refreshMessages();
+    await refreshMessages();
+    scrollToBottom();
+    setIsDoingSomething(false);
   }
 
-  function refreshMessages() {
+  const refreshMessages = useCallback(async () => {
     if (!accesToken || !chatUserId) {
       return;
     }
-    getDmMessages(accesToken, chatUserId).then(res => {
-      setChatMessages(res.messages.reverse());
-      setOtherUser(res.users.other);
-      setMessageUser(res.users.you);
-    });
-  }
+    const res = await getDmMessages(accesToken, chatUserId)
+
+    setChatMessages(res.messages.reverse());
+    setOtherUser(res.users.other);
+    setMessageUser(res.users.you);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accesToken, chatUserId]);
+
+  // refresh messages every 5 seconds (polling)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshMessages();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [refreshMessages]);
 
 
 
   useEffect(() => {
-    console.log("chatUserId", chatUserId);
-
     if (!chatUserId || !accesToken) {
       return;
     }
 
-    refreshMessages();
-
-  }, [chatUserId, accesToken]);
+    setIsDoingSomething(false);
+    refreshMessages().then(() => {
+      scrollToBottom(false);
+    });
+  }, [chatUserId, accesToken, refreshMessages]);
 
   useEffect(() => {
-    document.getElementById('end-messages')?.scrollIntoView({behavior: 'smooth'});
+    if (!isDoingSomething) {
+      scrollToBottom();
+
+      if (chatMessages && chatMessages.length > 0) {
+        setIsDoingSomething(true);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatMessages]);
+
+  useEffect(() => {
+    setIsDoingSomething(false);
+  }, [setIsDoingSomething]);
+
+  function scrollToBottom(smooth: boolean = true) {
+
+    setTimeout(() => {
+      
+    }, 100);
+
+    console.log("scrolling to bottom");
+
+    if (smooth) {
+      document.getElementById('end-messages')?.scrollIntoView({behavior: 'smooth'});
+    }
+    else {
+      document.getElementById('end-messages')?.scrollIntoView();
+    }
+  }
 
   return (
     <InnerHeader content={
       <DefaultInnerHeaderContent pageTitle={`Chat with ${otherUser?.nickname}`}/>
     }>
       <Group style={{display: "block"}}>
-        <ScrollArea style={{height: "calc(100vh - 160px)", width: "100%"}}>
+        <ScrollArea style={{height: "calc(100vh - 160px)", width: "100%"}} id='message-scrolls'>
 
           <Stack style={{margin: "20px"}}>
             {(chatMessages && otherUser && messageUser)  && chatMessages.map((message) => {
@@ -71,6 +111,7 @@ export default function ChatPage() {
                   user={message.sender_id === chatUserId ? otherUser : messageUser}
                   isMe={message.sender_id === messageUser.id}
                   refresh={refreshMessages}
+                  setIsDoingSomething={setIsDoingSomething}
                 />
               );
             })} 
@@ -98,7 +139,7 @@ function ChatBox({submit}: {submit: (message: string) => void}){
     <Group style={{display: "block"}}  m={'lg'}>
       <TextInput
         label="Send a message"
-        placeholder="bababa"
+        placeholder="Type your message here..."
         value={textFieldValue}
         onChange={(event) => setTextFieldValue(event.currentTarget.value)}
         onSubmit={() => {console.log("onsub");send()}}
@@ -115,12 +156,13 @@ function ChatBox({submit}: {submit: (message: string) => void}){
 }
 
 function ChatCard(
-  {message, user, isMe, refresh}: 
+  {message, user, isMe, refresh, setIsDoingSomething}: 
   {
     message: GetMessagesResponse["messages"][0], 
     user: GetMessagesResponse['users']['you']  | GetMessagesResponse['users']['other'], 
     isMe: boolean,
-    refresh: () => void
+    refresh: () => Promise<void>,
+    setIsDoingSomething?: (isDoingSomething: boolean) => void
   }
 ) {
   const { generalAccesToken: accesToken } = useContext(UserContext);
@@ -129,6 +171,7 @@ function ChatCard(
     if (!accesToken) {
       return;
     }
+    setIsDoingSomething?.(true)
     await deleteMessage(accesToken, message)
     refresh()
   }
