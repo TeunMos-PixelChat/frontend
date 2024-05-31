@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 import { User, useAuth0, type GetTokenSilentlyOptions, type RedirectLoginOptions } from "@auth0/auth0-react";
-import { getUserMetadata } from "../auth0ApiFunctions";
-
-
+import { getUserMetadata, type FullAuth0User } from "../auth0ApiFunctions";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+
 
 export const UserContext = createContext({
   user: undefined as User | undefined,
@@ -51,7 +50,7 @@ export function UserContextProvider({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth0user, getAccessTokenSilently, getAccessTokenWithPopup]);
 
-  async function getUserData(userId: User["sub"]): Promise<User | undefined> {
+  async function getUserData(userId: User["sub"]): Promise<FullAuth0User | undefined> {
     const authparams: GetTokenSilentlyOptions| RedirectLoginOptions = {
       authorizationParams: {
         audience: `https://${domain}/api/v2/`,

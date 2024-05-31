@@ -1,6 +1,13 @@
 import axios from 'axios';
 const apiURL = process.env.REACT_APP_API_URL || "api";
 
+export type StrippedUser = {
+  id: string;
+  name: string;
+  nickname: string;
+  picture: string;
+};
+
 export type GetMessagesResponse = {
   messages: {
     id: string;
@@ -14,6 +21,10 @@ export type GetMessagesResponse = {
     user1: string | null;
     user2: string | null;
   } | null;
+  users: {
+    you: StrippedUser;
+    other: StrippedUser;
+  };
 };
 
 
@@ -34,6 +45,20 @@ export async function sendMessage(accessToken: string, receiverId: string, messa
   }, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return resp.data;
+}
+
+export async function deleteMessage(accessToken: string, message: GetMessagesResponse['messages'][0]): Promise<object> {
+  const resp = await axios.delete(`${apiURL}/message/dm/${message.id}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+      receiver_id: message.receiver_id,
+      created_at: message.created_at,
     },
   });
 

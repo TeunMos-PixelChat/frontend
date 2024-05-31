@@ -2,22 +2,21 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getDmMessages, sendMessage, type GetMessagesResponse } from '../util/messageApiFunctions';
+import { deleteMessage, getDmMessages, sendMessage, type GetMessagesResponse } from '../util/messageApiFunctions';
 import { UserContext } from '../util/providers/userContext';
-import { ActionIcon, Card, Group, ScrollArea, Stack, TextInput, Text } from '@mantine/core';
+import { ActionIcon, Group, ScrollArea, Stack, TextInput, Text, Flex, Avatar } from '@mantine/core';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 import GoogleIcon from '../components/googleIcon';
-import { getUserById, type GetUserResponse } from '../util/userServiceFunctions';
-import { useAuth0, type User } from '@auth0/auth0-react';
+import { useScrollIntoView } from '@mantine/hooks';
 
 export default function ChatPage() {
   const { id: chatUserId } = useParams();
-  const { generalAccesToken: accesToken, user } = useContext(UserContext);
-  const { user: auth0user } = useAuth0();
-
+  const { generalAccesToken: accesToken } = useContext(UserContext);
+  
   const [chatMessages, setChatMessages] = useState<GetMessagesResponse['messages'] | undefined>();
-  const [otherUser, setOtherUser] = useState<GetUserResponse | undefined>();
+  const [otherUser, setOtherUser] = useState<GetMessagesResponse['users']['other'] | undefined>();
+  const [messageUser, setMessageUser] = useState<GetMessagesResponse['users']['you'] | undefined>();
 
   async function send(message: string) {
     if (!accesToken || !chatUserId) {
@@ -25,10 +24,21 @@ export default function ChatPage() {
     }
     await sendMessage(accesToken, chatUserId, message);
 
+    refreshMessages();
+  }
+
+  function refreshMessages() {
+    if (!accesToken || !chatUserId) {
+      return;
+    }
     getDmMessages(accesToken, chatUserId).then(res => {
       setChatMessages(res.messages.reverse());
+      setOtherUser(res.users.other);
+      setMessageUser(res.users.you);
     });
   }
+
+
 
   useEffect(() => {
     console.log("chatUserId", chatUserId);
@@ -37,17 +47,14 @@ export default function ChatPage() {
       return;
     }
 
-    // get messages
-    getDmMessages(accesToken, chatUserId).then(res => {
-      setChatMessages(res.messages.reverse());
-    });
-
-    getUserById(accesToken, chatUserId).then(res => {
-      setOtherUser(res);
-    });
+    refreshMessages();
 
   }, [chatUserId, accesToken]);
-  
+
+  useEffect(() => {
+    document.getElementById('end-messages')?.scrollIntoView({behavior: 'smooth'});
+  }, [chatMessages]);
+
   return (
     <InnerHeader content={
       <DefaultInnerHeaderContent pageTitle={`Chat with ${otherUser?.nickname}`}/>
@@ -55,17 +62,19 @@ export default function ChatPage() {
       <Group style={{display: "block"}}>
         <ScrollArea style={{height: "calc(100vh - 160px)", width: "100%"}}>
 
-          <Stack style={{margin: "10px"}}>
-            {chatMessages && chatMessages.map((message) => {
+          <Stack style={{margin: "20px"}}>
+            {(chatMessages && otherUser && messageUser)  && chatMessages.map((message) => {
               return (
                 <ChatCard
+                  key={message.id}
                   message={message}
-                  user={user}
-                  otherUser={otherUser}
-                  auth0user={auth0user}
+                  user={message.sender_id === chatUserId ? otherUser : messageUser}
+                  isMe={message.sender_id === messageUser.id}
+                  refresh={refreshMessages}
                 />
               );
             })} 
+            <div id='end-messages'></div>
           </Stack>
         </ScrollArea>
         <ChatBox submit={(message: string) => send(message)} />
@@ -105,30 +114,65 @@ function ChatBox({submit}: {submit: (message: string) => void}){
   );
 }
 
-function ChatCard({message, user, otherUser, auth0user}: 
-  {message: GetMessagesResponse["messages"][0], user:  User | undefined, otherUser: GetUserResponse | undefined, auth0user: User | undefined}
+function ChatCard(
+  {message, user, isMe, refresh}: 
+  {
+    message: GetMessagesResponse["messages"][0], 
+    user: GetMessagesResponse['users']['you']  | GetMessagesResponse['users']['other'], 
+    isMe: boolean,
+    refresh: () => void
+  }
 ) {
+  const { generalAccesToken: accesToken } = useContext(UserContext);
 
-  console.log("message", message);
-  console.log("user", user);
-  console.log("otherUser", otherUser);
-
-  const isMe = message.sender_id === auth0user?.sub;
+  async function deleteUserMessage() {
+    if (!accesToken) {
+      return;
+    }
+    await deleteMessage(accesToken, message)
+    refresh()
+  }
 
   return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder >
-      <Card.Section>
-        {isMe ? (
-          <Text style={{margin:'5px'}} size='sm' fw={700}>{user?.nickname}</Text>
-        ) : (
-          <Text style={{margin:'5px'}} size='sm'>{otherUser?.nickname}</Text>
-        )
-        }
+    <Group style={{display: "block"}}>
+      <Flex 
+        justify="flex-start" 
+        gap="md"
+        direction="row"
+      >
+        <Avatar src={user.picture}/>
+        <Flex 
+          justify="flex-start" 
+          gap="sm"
+          direction="column"
+        >
+          <Flex
+            justify="flex-start" 
+            gap="sm"
+            direction="row"
+          >
+            { isMe ? (
+              <Text size='lg' fw={700} >{user.nickname}</Text>
+            ) : (
+              <Text size='lg' >{user.nickname}</Text>
+            )}
 
-      </Card.Section>
-      <Card.Section>
-        <Text style={{margin:'5px'}}>{message.message}</Text>
-      </Card.Section>
-    </Card>
+
+            <Text size='sm'fw={500} c='gray'>{new Date(message.created_at).toLocaleString()}</Text>
+          </Flex>
+          
+
+          <Text style={{margin:'5px'}}>{message.message}</Text>
+        </Flex>
+        <div style={{flexGrow: 1}}></div>
+        { isMe ? (
+          <ActionIcon variant="default" onClick={deleteUserMessage}>
+            <GoogleIcon icon="delete"/>
+          </ActionIcon>
+        ) : (
+          <div></div>
+        )}
+      </Flex>
+    </Group>
   );
 }
