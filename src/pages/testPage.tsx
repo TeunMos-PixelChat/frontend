@@ -42,14 +42,9 @@ export default function TestPage() {
       Authorization: `Bearer ${accessToken}`,
     }}
     ).then(res => {
-      console.log(res);
       setResponse(res.data);
     }).catch(err => {
       console.error(err);
-    });
-
-    await getAllUsersExceptMe(accessToken, user?.sub || "").then(res => {
-      console.log(res);
     });
   }
 

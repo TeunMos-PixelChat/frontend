@@ -26,7 +26,6 @@ export function UserContextProvider({
 
 
   useEffect(() => {
-    console.log("auth0user", auth0user);
 
     if (auth0user?.sub) {
       getUserData(auth0user.sub).then((user) => {

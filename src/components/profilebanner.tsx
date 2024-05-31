@@ -3,7 +3,6 @@ import { UserContext } from "../util/providers/userContext";
 import { useContext } from "react";
 
 
-
 export default function ProfileBanner() {
   const { user } = useContext(UserContext);
 

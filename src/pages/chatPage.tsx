@@ -85,8 +85,6 @@ export default function ChatPage() {
       
     }, 100);
 
-    console.log("scrolling to bottom");
-
     if (smooth) {
       document.getElementById('end-messages')?.scrollIntoView({behavior: 'smooth'});
     }
@@ -142,7 +140,6 @@ function ChatBox({submit}: {submit: (message: string) => void}){
         placeholder="Type your message here..."
         value={textFieldValue}
         onChange={(event) => setTextFieldValue(event.currentTarget.value)}
-        onSubmit={() => {console.log("onsub");send()}}
         rightSection={iconButton}
         onKeyDown={(ev) => {
           if(ev.key === 'Enter') {
