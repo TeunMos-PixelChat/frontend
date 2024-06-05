@@ -7,9 +7,6 @@ import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderCon
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { UserContext } from '../util/providers/userContext';
-import { getAllUsersExceptMe } from '../util/userServiceFunctions';
-
-
 
 export default function TestPage() {
   const [response, setResponse] = React.useState<object | undefined>();
