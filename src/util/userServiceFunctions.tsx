@@ -24,6 +24,16 @@ export async function getAllUsersExceptMe(accessToken: string, userId: string): 
   return resp.filter(user => user.id !== userId);
 }
 
+export async function getMe(accessToken: string) {
+  const resp = await axios.get<GetUserResponse>(`${apiURL}/user/user`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return resp.data;
+}
+
 export async function getUserById(accessToken: string, userId: string) {
   const resp = await axios.get<GetUserResponse>(`${apiURL}/user/user/${userId}`, {
     headers: {
@@ -32,4 +42,20 @@ export async function getUserById(accessToken: string, userId: string) {
   });
 
   return resp.data;
+}
+
+export async function deleteUser(accessToken: string) {
+  await axios.delete(`${apiURL}/user/user`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+}
+
+export async function deleteAllUserData(accessToken: string) {
+  await axios.delete(`${apiURL}/user/user/data`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
 }

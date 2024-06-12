@@ -17,8 +17,9 @@ export default function SmallSidebarButtons() {
 
   const pages: Page[] = [
     { path: "/", icon: "home", title: "Home" },
-    { path: "/search", icon: "search", title: "Search" },
-    { path: "/notifications", icon: "notifications", title: "Notifications" },
+    { path: "/test", icon: "science", title: "Test"}
+    // { path: "/search", icon: "search", title: "Search" },
+    // { path: "/notifications", icon: "notifications", title: "Notifications" },
   ];
 
   useEffect(() => {

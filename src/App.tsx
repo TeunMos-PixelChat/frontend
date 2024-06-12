@@ -9,6 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import AuthShell from "./components/shell/authShell";
 import SettingsPage from "./pages/settingsPage";
 import ChatPage from "./pages/chatPage";
+import HomePage from "./pages/homePage";
 
 function App() {
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
@@ -38,11 +39,13 @@ function App() {
     <BrowserRouter>
       <Shell>
         <Routes>
-          <Route index element={<TestPage />} />
+          <Route index element={<HomePage />} />
           <Route
             path="/settings" element={<SettingsPage/>} />
           <Route
             path="/dm/:id" element={<ChatPage/>} />
+          <Route
+            path="/test" element={<TestPage/>} />
           <Route
             path="*"
             element={
