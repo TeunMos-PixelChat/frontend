@@ -1,7 +1,5 @@
-import React, { useEffect, useContext } from 'react';
-import { Group, Center, Code, Stack, Loader, Flex, Button, Title } from '@mantine/core';
-import axios from 'axios';
-import { CodeHighlight } from '@mantine/code-highlight';
+import React, { useContext } from 'react';
+import { Group, Center, Title } from '@mantine/core';
 import InnerHeader from '../components/shell/innerHeader';
 import DefaultInnerHeaderContent from '../components/shell/defaultInnerHeaderContent';
 
